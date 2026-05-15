@@ -15,21 +15,25 @@ const rows = data.rows ?? [];
 
 const expectedRanges = {
   "prisma::read-by-id": [3.5, 4.5],
+  "prisma::read-by-id-best-effort": [0.8, 1.5],
   "jdbc::read-by-id": [0.8, 1.2],
+  "jdbc::read-by-id-best-effort": [0.8, 1.2],
   "prisma::paginated-list": [0.8, 1.2],
   "jdbc::paginated-list": [0.8, 1.2],
   "prisma::relation-summary-naive": [180, 230],
   "jdbc::relation-summary-naive": [180, 230],
-  "prisma::relation-summary-optimized": [1.5, 3],
-  "jdbc::relation-summary-optimized": [1.5, 3],
+  "prisma::relation-summary-best-effort": [1.5, 3],
+  "jdbc::relation-summary-best-effort": [1.5, 3],
   "prisma::n-plus-one-trap-naive": [90, 115],
   "jdbc::n-plus-one-trap-naive": [280, 320],
-  "prisma::n-plus-one-trap-optimized": [3.5, 5],
-  "jdbc::n-plus-one-trap-optimized": [1.5, 3],
+  "prisma::n-plus-one-trap-idiomatic": [2.5, 4],
+  "jdbc::n-plus-one-trap-idiomatic": [1.5, 3],
+  "prisma::n-plus-one-trap-best-effort": [0.8, 1.5],
+  "jdbc::n-plus-one-trap-best-effort": [1.5, 3],
   "prisma::transaction-write": [6, 8],
   "jdbc::transaction-write": [4, 6],
-  "prisma::report-aggregation": [0.8, 1.5],
-  "jdbc::report-aggregation": [0.8, 1.2]
+  "prisma::report-aggregation-best-effort": [0.8, 1.5],
+  "jdbc::report-aggregation-best-effort": [0.8, 1.2]
 };
 
 const failures = [];

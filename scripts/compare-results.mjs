@@ -32,8 +32,8 @@ const text = {
     cannot: "Que NO se puede concluir",
     raw: "Datos crudos",
     bullets: [
-      "La comparacion mas defendible es naive vs optimized dentro de cada stack, especialmente en relation-summary y n-plus-one-trap.",
-      "report-aggregation mide el valor de SQL explicito cuando el shape del dato es agregacional.",
+      "La comparacion mas defendible es naive vs idiomatic vs best-effort dentro de cada stack cuando existen variantes equivalentes.",
+      "report-aggregation y relation-summary-best-effort miden el valor de SQL explicito cuando el shape del dato es agregacional.",
       "transaction-write observa costo de transaccion HTTP + driver + pool + escritura; no aisla solo el motor de base de datos."
     ],
     cannotBullets: [
@@ -59,8 +59,8 @@ const text = {
     cannot: "What You Cannot Conclude",
     raw: "Raw Data",
     bullets: [
-      "The most defensible comparison is naive vs optimized within each stack, especially in relation-summary and n-plus-one-trap.",
-      "report-aggregation measures the value of explicit SQL when the data shape is aggregational.",
+      "The most defensible comparison is naive vs idiomatic vs best-effort within each stack when equivalent variants exist.",
+      "report-aggregation and relation-summary-best-effort measure the value of explicit SQL when the data shape is aggregational.",
       "transaction-write observes the cost of HTTP + driver + pool + write transaction; it does not isolate the database engine alone."
     ],
     cannotBullets: [
@@ -103,7 +103,7 @@ function round(value) {
 
 const groups = new Map();
 for (const row of rows) {
-  const key = `${row.stack}::${row.scenario}`;
+  const key = `${row.stack}::${row.scenario}::${row.level ?? ""}`;
   if (!groups.has(key)) groups.set(key, []);
   groups.get(key).push(row);
 }
@@ -112,6 +112,7 @@ const summary = [...groups.values()]
   .map((items) => ({
     stack: items[0].stack,
     scenario: items[0].scenario,
+    level: items[0].level ?? "",
     runs: items.length,
     successful_rps_avg: round(average(items, "successful_requests_per_second")),
     successful_p95_ms_avg: round(average(items, "successful_p95_ms")),
@@ -139,10 +140,10 @@ lines.push(`- ${text.warmup}: ${data.methodology.warmup}`);
 lines.push(`- ${text.concurrency}: ${data.methodology.concurrency}`, "");
 lines.push(text.warning, "");
 lines.push(`## ${text.observed}`, "");
-lines.push("| scenario | stack | runs | rps ok avg | p95 ok ms avg | p99 ok ms avg | SQL/request avg | RSS MB last | DB conns last |");
-lines.push("|---|---:|---:|---:|---:|---:|---:|---:|---:|");
+lines.push("| scenario | level | stack | runs | rps ok avg | p95 ok ms avg | p99 ok ms avg | SQL/request avg | RSS MB last | DB conns last |");
+lines.push("|---|---|---:|---:|---:|---:|---:|---:|---:|---:|");
 for (const row of summary) {
-  lines.push(`| ${row.scenario} | ${row.stack} | ${row.runs} | ${row.successful_rps_avg} | ${row.successful_p95_ms_avg} | ${row.successful_p99_ms_avg} | ${row.avg_sql_queries_per_request} | ${row.app_rss_mb_last} | ${row.db_connections_used_last} |`);
+  lines.push(`| ${row.scenario} | ${row.level} | ${row.stack} | ${row.runs} | ${row.successful_rps_avg} | ${row.successful_p95_ms_avg} | ${row.successful_p99_ms_avg} | ${row.avg_sql_queries_per_request} | ${row.app_rss_mb_last} | ${row.db_connections_used_last} |`);
 }
 lines.push("", `## ${text.interpretation}`, "");
 for (const bullet of text.bullets) lines.push(`- ${bullet}`);

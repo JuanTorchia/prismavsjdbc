@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="720" viewBox="0 0 1600 720" role="img" aria-label="Mejora por nivel dentro de cada stack">
+  <rect width="100%" height="100%" fill="#f8fafc"/>
+  <text x="40" y="44" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#0f172a">Mejora por nivel dentro de cada stack</text>
+  <text x="40" y="688" font-family="Arial, sans-serif" font-size="13" fill="#475569">Advertencia metodologica: HTTP, pool, driver, GC, Docker Desktop y PostgreSQL estan dentro de la medicion.</text>
+  <g font-family="Arial, sans-serif">
+    <line x1="88" y1="470" x2="1548" y2="470" stroke="#94a3b8" />
+    <line x1="88" y1="78" x2="88" y2="470" stroke="#94a3b8" />
+    
+      <rect x="92" y="78" width="235.33333333333334" height="392" rx="3" fill="#16a34a" />
+      <text x="209.66666666666669" y="72" text-anchor="middle" font-size="12" fill="#0f172a">150.5</text>
+      <text x="209.66666666666669" y="498" text-anchor="end" transform="rotate(-52 209.66666666666669 498)" font-size="13" fill="#334155">n-plus-one-trap-best / jdbc</text>
+      <rect x="335.33333333333337" y="201.6167441860465" width="235.33333333333334" height="268.3832558139535" rx="3" fill="#2563eb" />
+      <text x="453.00000000000006" y="195.6167441860465" text-anchor="middle" font-size="12" fill="#0f172a">103.04</text>
+      <text x="453.00000000000006" y="498" text-anchor="end" transform="rotate(-52 453.00000000000006 498)" font-size="13" fill="#334155">n-plus-one-trap-best / prisma</text>
+      <rect x="578.6666666666667" y="78" width="235.33333333333334" height="392" rx="3" fill="#16a34a" />
+      <text x="696.3333333333334" y="72" text-anchor="middle" font-size="12" fill="#0f172a">150.5</text>
+      <text x="696.3333333333334" y="498" text-anchor="end" transform="rotate(-52 696.3333333333334 498)" font-size="13" fill="#334155">n-plus-one-trap-idio / jdbc</text>
+      <rect x="822" y="380.5302325581395" width="235.33333333333334" height="89.46976744186047" rx="3" fill="#2563eb" />
+      <text x="939.6666666666666" y="374.5302325581395" text-anchor="middle" font-size="12" fill="#0f172a">34.35</text>
+      <text x="939.6666666666666" y="498" text-anchor="end" transform="rotate(-52 939.6666666666666 498)" font-size="13" fill="#334155">n-plus-one-trap-idio / prisma</text>
+      <rect x="1065.3333333333335" y="208.2325581395349" width="235.33333333333334" height="261.7674418604651" rx="3" fill="#16a34a" />
+      <text x="1183.0000000000002" y="202.2325581395349" text-anchor="middle" font-size="12" fill="#0f172a">100.5</text>
+      <text x="1183.0000000000002" y="498" text-anchor="end" transform="rotate(-52 1183.0000000000002 498)" font-size="13" fill="#334155">relation-summary-best / jdbc</text>
+      <rect x="1308.6666666666667" y="213.02511627906978" width="235.33333333333334" height="256.9748837209302" rx="3" fill="#2563eb" />
+      <text x="1426.3333333333335" y="207.02511627906978" text-anchor="middle" font-size="12" fill="#0f172a">98.66</text>
+      <text x="1426.3333333333335" y="498" text-anchor="end" transform="rotate(-52 1426.3333333333335 498)" font-size="13" fill="#334155">relation-summary-best / prisma</text>
+    <circle cx="1370" cy="38" r="7" fill="#2563eb"/><text x="1384" y="42" font-size="13">Prisma</text>
+    <circle cx="1460" cy="38" r="7" fill="#16a34a"/><text x="1474" y="42" font-size="13">JDBC</text>
+  </g>
+</svg>

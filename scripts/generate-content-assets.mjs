@@ -56,13 +56,14 @@ function round(value) {
 function groupSummary(rows) {
   const groups = new Map();
   for (const row of rows) {
-    const key = `${row.stack}::${row.scenario}`;
+    const key = `${row.stack}::${row.scenario}::${row.level ?? ""}`;
     if (!groups.has(key)) groups.set(key, []);
     groups.get(key).push(row);
   }
   return [...groups.values()].map((items) => ({
     stack: items[0].stack,
     scenario: items[0].scenario,
+    level: items[0].level ?? "",
     p95: round(items.reduce((sum, row) => sum + num(row.successful_p95_ms), 0) / items.length),
     p99: round(items.reduce((sum, row) => sum + num(row.successful_p99_ms), 0) / items.length),
     rps: round(items.reduce((sum, row) => sum + num(row.successful_requests_per_second), 0) / items.length),
@@ -77,7 +78,9 @@ const copy = {
     subtitle: "Graficos generados desde resultados reproducibles. No son verdad universal: muestran esta maquina, este dataset y esta metodologia.",
     p95: "p95 exitoso por escenario",
     sql: "SQL por request exitoso",
-    n1: "Impacto N+1: naive vs optimized",
+    n1: "Impacto N+1: naive vs idiomatic/best-effort",
+    level: "Mejora por nivel dentro de cada stack",
+    best: "Idiomatic vs best-effort",
     table: "Resumen editorial",
     caption: "El patron importante es que optimizar el shape cambia mas que discutir el runtime en abstracto.",
     warning: "Advertencia metodologica: HTTP, pool, driver, GC, Docker Desktop y PostgreSQL estan dentro de la medicion.",
@@ -90,7 +93,9 @@ const copy = {
     subtitle: "Charts generated from reproducible results. They are not universal truth: they show this machine, dataset, and methodology.",
     p95: "Successful p95 by scenario",
     sql: "SQL per successful request",
-    n1: "N+1 impact: naive vs optimized",
+    n1: "N+1 impact: naive vs idiomatic/best-effort",
+    level: "Improvement by level within each stack",
+    best: "Idiomatic vs best-effort",
     table: "Editorial summary",
     caption: "The important pattern is that optimizing query shape changes more than arguing about runtime in the abstract.",
     warning: "Methodology warning: HTTP, pool, driver, GC, Docker Desktop, and PostgreSQL are all inside the measurement.",
@@ -102,13 +107,13 @@ const copy = {
 
 if (!copy) throw new Error(`Unsupported lang: ${lang}`);
 
-function barChart({ title, rows, valueKey, fileName, width = 1200, height = 720, maxItems = 16 }) {
+function barChart({ title, rows, valueKey, fileName, width = 1600, height = 860, maxItems = 24 }) {
   const data = rows
     .slice()
     .sort((a, b) => a.scenario.localeCompare(b.scenario) || a.stack.localeCompare(b.stack))
     .slice(0, maxItems);
   const max = Math.max(...data.map((d) => d[valueKey]), 1);
-  const margin = { top: 72, right: 48, bottom: 190, left: 78 };
+  const margin = { top: 78, right: 52, bottom: 250, left: 88 };
   const innerW = width - margin.left - margin.right;
   const innerH = height - margin.top - margin.bottom;
   const barW = innerW / data.length - 8;
@@ -117,11 +122,11 @@ function barChart({ title, rows, valueKey, fileName, width = 1200, height = 720,
     const x = margin.left + i * (innerW / data.length) + 4;
     const h = (d[valueKey] / max) * innerH;
     const y = margin.top + innerH - h;
-    const label = `${d.scenario.replace("-optimized", "-opt").replace("-naive", "-naive")} / ${d.stack}`;
+    const label = `${d.scenario.replace("-best-effort", "-best").replace("-idiomatic", "-idio").replace("-optimized", "-opt").replace("-naive", "-naive")} / ${d.stack}`;
     return `
       <rect x="${x}" y="${y}" width="${barW}" height="${h}" rx="3" fill="${colors[d.stack] ?? "#64748b"}" />
       <text x="${x + barW / 2}" y="${y - 6}" text-anchor="middle" font-size="12" fill="#0f172a">${d[valueKey]}</text>
-      <text x="${x + barW / 2}" y="${height - 170}" text-anchor="end" transform="rotate(-55 ${x + barW / 2} ${height - 170})" font-size="12" fill="#334155">${escapeXml(label)}</text>`;
+      <text x="${x + barW / 2}" y="${height - 222}" text-anchor="end" transform="rotate(-52 ${x + barW / 2} ${height - 222})" font-size="13" fill="#334155">${escapeXml(label)}</text>`;
   }).join("");
   return svgFrame({ title, width, height, body: `
     <line x1="${margin.left}" y1="${margin.top + innerH}" x2="${width - margin.right}" y2="${margin.top + innerH}" stroke="#94a3b8" />
@@ -133,8 +138,32 @@ function barChart({ title, rows, valueKey, fileName, width = 1200, height = 720,
 }
 
 function nPlusOneChart(rows) {
-  const wanted = rows.filter((r) => ["relation-summary-naive", "relation-summary-optimized", "n-plus-one-trap-naive", "n-plus-one-trap-optimized"].includes(r.scenario));
-  return barChart({ title: copy.n1, rows: wanted, valueKey: "sql", fileName: "n-plus-one-impact.svg", height: 640, maxItems: 8 });
+  const wanted = rows.filter((r) => ["relation-summary-naive", "relation-summary-best-effort", "n-plus-one-trap-naive", "n-plus-one-trap-idiomatic", "n-plus-one-trap-best-effort"].includes(r.scenario));
+  return barChart({ title: copy.n1, rows: wanted, valueKey: "sql", fileName: "n-plus-one-impact.svg", height: 760, maxItems: 10 });
+}
+
+function levelImprovementChart(rows) {
+  const bases = rows.filter((r) => r.level === "naive");
+  const improved = [];
+  for (const base of bases) {
+    const prefix = base.scenario.replace("-naive", "");
+    const peers = rows.filter((r) => r.stack === base.stack && r.scenario.startsWith(prefix) && r.scenario !== base.scenario && ["idiomatic", "best-effort"].includes(r.level));
+    for (const peer of peers) {
+      improved.push({
+        stack: peer.stack,
+        scenario: `${prefix}-${peer.level}`,
+        level: peer.level,
+        p95: round(base.p95 / Math.max(peer.p95, 0.01)),
+        sql: round(base.sql / Math.max(peer.sql, 0.01))
+      });
+    }
+  }
+  return barChart({ title: copy.level, rows: improved, valueKey: "sql", fileName: "level-improvement.svg", height: 720, maxItems: 8 });
+}
+
+function idiomaticVsBestChart(rows) {
+  const wanted = rows.filter((r) => ["read-by-id", "read-by-id-best-effort", "n-plus-one-trap-idiomatic", "n-plus-one-trap-best-effort"].includes(r.scenario));
+  return barChart({ title: copy.best, rows: wanted, valueKey: "p95", fileName: "idiomatic-vs-best-effort.svg", height: 760, maxItems: 8 });
 }
 
 function svgFrame({ title, width, height, body }) {
@@ -155,7 +184,7 @@ function htmlReport(summary) {
   const rows = summary
     .slice()
     .sort((a, b) => a.scenario.localeCompare(b.scenario) || a.stack.localeCompare(b.stack))
-    .map((r) => `<tr><td>${r.scenario}</td><td>${r.stack}</td><td>${r.p95}</td><td>${r.rps}</td><td>${r.sql}</td></tr>`)
+    .map((r) => `<tr><td>${r.scenario}</td><td>${r.level}</td><td>${r.stack}</td><td>${r.p95}</td><td>${r.rps}</td><td>${r.sql}</td></tr>`)
     .join("");
   return `<!doctype html>
 <html lang="${lang}">
@@ -189,10 +218,12 @@ function htmlReport(summary) {
       <section id="p95"><h2>${copy.p95}</h2><img src="p95-by-scenario.svg" alt="${copy.p95}" /></section>
       <section id="sql"><h2>${copy.sql}</h2><img src="sql-by-scenario.svg" alt="${copy.sql}" /></section>
       <section id="n1"><h2>${copy.n1}</h2><img src="n-plus-one-impact.svg" alt="${copy.n1}" /></section>
+      <section id="levels"><h2>${copy.level}</h2><img src="level-improvement.svg" alt="${copy.level}" /></section>
+      <section id="best"><h2>${copy.best}</h2><img src="idiomatic-vs-best-effort.svg" alt="${copy.best}" /></section>
       <section id="summary">
         <h2>${copy.table}</h2>
         <p class="note">${copy.caption}</p>
-        <table><thead><tr><th>scenario</th><th>stack</th><th>p95 ms</th><th>rps</th><th>SQL/request</th></tr></thead><tbody>${rows}</tbody></table>
+        <table><thead><tr><th>scenario</th><th>level</th><th>stack</th><th>p95 ms</th><th>rps</th><th>SQL/request</th></tr></thead><tbody>${rows}</tbody></table>
       </section>
     </div>
   </main>
@@ -207,6 +238,8 @@ const summary = groupSummary(comparison);
 await writeFile(path.join(outDir, "p95-by-scenario.svg"), barChart({ title: copy.p95, rows: summary, valueKey: "p95", fileName: "p95-by-scenario.svg" }), "utf8");
 await writeFile(path.join(outDir, "sql-by-scenario.svg"), barChart({ title: copy.sql, rows: summary, valueKey: "sql", fileName: "sql-by-scenario.svg" }), "utf8");
 await writeFile(path.join(outDir, "n-plus-one-impact.svg"), nPlusOneChart(summary), "utf8");
+await writeFile(path.join(outDir, "level-improvement.svg"), levelImprovementChart(summary), "utf8");
+await writeFile(path.join(outDir, "idiomatic-vs-best-effort.svg"), idiomaticVsBestChart(summary), "utf8");
 await writeFile(path.join(outDir, `report.${lang}.html`), htmlReport(summary), "utf8");
 
 try {

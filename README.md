@@ -90,6 +90,12 @@ Esto ejecuta:
 .\scripts\run-lab.ps1 -Mode editorial -Size editorial -Runs 3 -Requests 300 -Warmup 30 -Concurrency 16
 ```
 
+Si tu `java -version` no apunta a Java 21, fija el baseline explicitamente:
+
+```powershell
+.\scripts\run-lab.ps1 -Mode editorial -Size editorial -Runs 3 -Requests 300 -Warmup 30 -Concurrency 16 -JavaHome 'C:\Users\jstor\scoop\apps\temurin21-jdk\current'
+```
+
 Bash:
 
 ```bash
@@ -119,11 +125,12 @@ Tambien hay una matriz ampliada de runtimes en `docs/runtime-version-matrix.md`,
 ## Casos medidos
 
 - `read-by-id`: obtiene una task por id con organization/project/user basico.
+- `read-by-id-best-effort`: mismo caso con shape SQL minimo para comparar contra el `include` idiomatico.
 - `paginated-list`: lista tasks filtradas por status, project y created_at.
-- `relation-summary-naive` y `relation-summary-optimized`: resumen para 100 projects con conteos y ultimo comentario.
-- `n-plus-one-trap-naive` y `n-plus-one-trap-optimized`: version mala y version corregida en ambos stacks.
+- `relation-summary-naive` y `relation-summary-best-effort`: resumen para 100 projects con conteos y ultimo comentario.
+- `n-plus-one-trap-naive`, `n-plus-one-trap-idiomatic` y `n-plus-one-trap-best-effort`: version mala, version normal mantenible y version SQL explicita razonable.
 - `transaction-write`: crea task + comment + audit_event dentro de transaccion.
-- `report-aggregation`: dashboard SQL agregacional por organization/status/dia.
+- `report-aggregation-best-effort`: dashboard SQL agregacional por organization/status/dia.
 
 ## Metricas
 
@@ -143,6 +150,7 @@ Tambien hay una matriz ampliada de runtimes en `docs/runtime-version-matrix.md`,
 - `app_rss_mb`
 - `db_connections_used`
 - `notes`
+- `level` (`naive`, `idiomatic`, `best-effort`)
 
 `sql_query_count` se instrumenta desde cada aplicacion. `pg_stat_statements` queda activado para inspeccion manual, pero no se usa como unica fuente porque resetear y atribuir por escenario puede inducir errores si hay conexiones auxiliares.
 
@@ -150,8 +158,8 @@ Tambien hay una matriz ampliada de runtimes en `docs/runtime-version-matrix.md`,
 
 La comparacion mas util no es Prisma vs JDBC en abstracto. Es:
 
-- naive vs optimized dentro de Prisma.
-- naive vs optimized dentro de JDBC.
+- naive vs idiomatic vs best-effort dentro de Prisma cuando existen variantes defendibles.
+- naive vs idiomatic vs best-effort dentro de JDBC cuando el shape cambia realmente.
 - ORM ergonomico vs SQL explicito cuando el shape del dato lo exige.
 - costo de transaccion completa HTTP + driver + pool + DB.
 

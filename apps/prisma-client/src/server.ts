@@ -16,6 +16,20 @@ app.get("/metrics", async () => appMetrics());
 
 app.get("/tasks/:id", async (req) => {
   const { id } = req.params as { id: string };
+  const mode = ((req.query as Record<string, string>).mode ?? "idiomatic") as "idiomatic" | "best-effort";
+  if (mode === "best-effort") {
+    return prisma.$queryRaw`
+      select t.id, t.title, t.status, t.created_at as "createdAt",
+             p.id as "projectId", p.name as "projectName",
+             o.id as "organizationId", o.name as "organizationName",
+             u.id as "assigneeId", u.display_name as "assigneeName"
+      from tasks t
+      join projects p on p.id = t.project_id
+      join organizations o on o.id = p.organization_id
+      join users u on u.id = t.assignee_id
+      where t.id = ${id}::uuid
+      limit 1`;
+  }
   return prisma.task.findUnique({
     where: { id },
     include: {
@@ -91,15 +105,29 @@ app.get("/relation-summary", async (req) => {
 });
 
 app.get("/n-plus-one-trap", async (req) => {
-  const mode = ((req.query as Record<string, string>).mode ?? "optimized") as "naive" | "optimized";
-  const tasks = await prisma.task.findMany({ orderBy: { id: "asc" }, take: 100 });
+  const mode = ((req.query as Record<string, string>).mode ?? "optimized") as "naive" | "optimized" | "best-effort";
   if (mode === "naive") {
+    const tasks = await prisma.task.findMany({ orderBy: { id: "asc" }, take: 100 });
     return Promise.all(tasks.map(async (task) => ({
       task,
       project: await prisma.project.findUnique({ where: { id: task.projectId } }),
       assignee: await prisma.user.findUnique({ where: { id: task.assigneeId } }),
       commentCount: await prisma.comment.count({ where: { taskId: task.id } })
     })));
+  }
+  if (mode === "best-effort") {
+    return prisma.$queryRaw`
+      select t.id, t.title, t.status, t.created_at as "createdAt",
+             p.name as "projectName",
+             u.display_name as "assigneeName",
+             count(c.id)::int as "commentCount"
+      from tasks t
+      join projects p on p.id = t.project_id
+      join users u on u.id = t.assignee_id
+      left join comments c on c.task_id = t.id
+      group by t.id, p.name, u.display_name
+      order by t.id asc
+      limit 100`;
   }
   return prisma.task.findMany({
     orderBy: { id: "asc" },

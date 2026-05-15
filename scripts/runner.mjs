@@ -19,14 +19,16 @@ const stacks = [
 ];
 
 const scenarios = [
-  { name: "read-by-id", method: "GET", path: `/tasks/${taskId}` },
-  { name: "paginated-list", method: "GET", path: `/tasks?status=TODO&projectId=${projectId}&createdFrom=2024-01-01T00:00:00Z&limit=50&offset=0` },
-  { name: "relation-summary-naive", method: "GET", path: "/relation-summary?mode=naive&limit=100" },
-  { name: "relation-summary-optimized", method: "GET", path: "/relation-summary?mode=optimized&limit=100" },
-  { name: "n-plus-one-trap-naive", method: "GET", path: "/n-plus-one-trap?mode=naive" },
-  { name: "n-plus-one-trap-optimized", method: "GET", path: "/n-plus-one-trap?mode=optimized" },
-  { name: "transaction-write", method: "POST", path: "/transaction-write" },
-  { name: "report-aggregation", method: "GET", path: "/report-aggregation" }
+  { name: "read-by-id", level: "idiomatic", method: "GET", path: `/tasks/${taskId}` },
+  { name: "read-by-id-best-effort", level: "best-effort", method: "GET", path: `/tasks/${taskId}?mode=best-effort` },
+  { name: "paginated-list", level: "idiomatic", method: "GET", path: `/tasks?status=TODO&projectId=${projectId}&createdFrom=2024-01-01T00:00:00Z&limit=50&offset=0` },
+  { name: "relation-summary-naive", level: "naive", method: "GET", path: "/relation-summary?mode=naive&limit=100" },
+  { name: "relation-summary-best-effort", level: "best-effort", method: "GET", path: "/relation-summary?mode=optimized&limit=100" },
+  { name: "n-plus-one-trap-naive", level: "naive", method: "GET", path: "/n-plus-one-trap?mode=naive" },
+  { name: "n-plus-one-trap-idiomatic", level: "idiomatic", method: "GET", path: "/n-plus-one-trap?mode=optimized" },
+  { name: "n-plus-one-trap-best-effort", level: "best-effort", method: "GET", path: "/n-plus-one-trap?mode=best-effort" },
+  { name: "transaction-write", level: "idiomatic", method: "POST", path: "/transaction-write" },
+  { name: "report-aggregation-best-effort", level: "best-effort", method: "GET", path: "/report-aggregation" }
 ];
 
 function percentile(values, p) {
@@ -129,6 +131,7 @@ for (let run = 1; run <= runs; run += 1) {
         run_label: runLabel,
         stack: stack.name,
         scenario: scenario.name,
+        level: scenario.level,
         total_requests: result.total_requests,
         successful_requests: result.successful_requests,
         error_rate: round(result.error_rate),

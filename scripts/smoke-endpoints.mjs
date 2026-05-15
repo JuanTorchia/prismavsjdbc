@@ -8,11 +8,13 @@ const stacks = [
 
 const endpoints = [
   ["GET", `/tasks/${taskId}`],
+  ["GET", `/tasks/${taskId}?mode=best-effort`],
   ["GET", `/tasks?status=TODO&projectId=${projectId}&createdFrom=2024-01-01T00:00:00Z&limit=50&offset=0`],
   ["GET", "/relation-summary?mode=naive&limit=100"],
   ["GET", "/relation-summary?mode=optimized&limit=100"],
   ["GET", "/n-plus-one-trap?mode=naive"],
   ["GET", "/n-plus-one-trap?mode=optimized"],
+  ["GET", "/n-plus-one-trap?mode=best-effort"],
   ["POST", "/transaction-write"],
   ["GET", "/report-aggregation"]
 ];

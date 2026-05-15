@@ -7,6 +7,8 @@ Graficos SVG:
 - `results/assets/p95-by-scenario.svg`
 - `results/assets/sql-by-scenario.svg`
 - `results/assets/n-plus-one-impact.svg`
+- `results/assets/level-improvement.svg`
+- `results/assets/idiomatic-vs-best-effort.svg`
 - `results/assets/java-sensitivity-p95.svg`
 
 Reportes HTML:
@@ -20,6 +22,8 @@ Capturas PNG:
 - `results/assets/screenshots/p95.png`
 - `results/assets/screenshots/sql.png`
 - `results/assets/screenshots/n1.png`
+- `results/assets/screenshots/levels.png`
+- `results/assets/screenshots/best.png`
 - `results/assets/screenshots/java-sensitivity-p95.png`
 
 ## Regenerar assets
@@ -82,9 +86,9 @@ http://127.0.0.1:4177/report.en.html
    - Objetivo: separar overhead fijo de costo que escala con datos.
 
 4. **EXPLAIN de queries optimizadas**
-   - `relation-summary-optimized`
-   - `n-plus-one-trap-optimized`
-   - `report-aggregation`
+   - `relation-summary-best-effort`
+   - `n-plus-one-trap-best-effort`
+   - `report-aggregation-best-effort`
    - Objetivo: darle solidez a lectores PostgreSQL.
 
 5. **Version matrix como sensibilidad**

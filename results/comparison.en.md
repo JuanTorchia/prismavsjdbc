@@ -1,6 +1,6 @@
 # Comparative Results
 
-Generated: 2026-05-15T19:56:48.502Z
+Generated: 2026-05-15T20:49:29.743Z
 
 ## Environment
 
@@ -22,29 +22,33 @@ Warning: these numbers observe two concrete implementations against a shared dat
 
 ## Observed Result
 
-| scenario | stack | runs | rps ok avg | p95 ok ms avg | p99 ok ms avg | SQL/request avg | RSS MB last | DB conns last |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| n-plus-one-trap-naive | jdbc | 3 | 15.02 | 2269.09 | 2749.08 | 301 | 109.8 | 23 |
-| n-plus-one-trap-naive | prisma | 3 | 24.77 | 925.73 | 1043.13 | 103.03 | 341.9 | 23 |
-| n-plus-one-trap-optimized | jdbc | 3 | 486.48 | 70.16 | 96.1 | 2 | 111.9 | 23 |
-| n-plus-one-trap-optimized | prisma | 3 | 162.35 | 206.04 | 295.13 | 4 | 343.6 | 23 |
-| paginated-list | jdbc | 3 | 713.07 | 74.66 | 122.24 | 1 | 106.7 | 23 |
-| paginated-list | prisma | 3 | 619.05 | 43.48 | 46.9 | 1 | 160.9 | 23 |
-| read-by-id | jdbc | 3 | 940.7 | 58.99 | 89.85 | 1 | 90.6 | 23 |
-| read-by-id | prisma | 3 | 483.77 | 61.74 | 81.6 | 4 | 160 | 23 |
-| relation-summary-naive | jdbc | 3 | 3.83 | 6584.76 | 8094.27 | 201 | 103.9 | 23 |
-| relation-summary-naive | prisma | 3 | 3.48 | 6192.05 | 6908.86 | 201.24 | 292.1 | 23 |
-| relation-summary-optimized | jdbc | 3 | 28.96 | 1127.1 | 1538.15 | 2 | 99.2 | 23 |
-| relation-summary-optimized | prisma | 3 | 31.42 | 806.65 | 943.22 | 2.04 | 291 | 23 |
-| report-aggregation | jdbc | 3 | 123.54 | 223.98 | 302.87 | 1 | 92.7 | 23 |
-| report-aggregation | prisma | 3 | 123.57 | 202.15 | 262.09 | 1.01 | 348.8 | 23 |
-| transaction-write | jdbc | 3 | 403.95 | 145.04 | 161.86 | 5 | 95.9 | 23 |
-| transaction-write | prisma | 3 | 235.63 | 231.05 | 284.28 | 7.01 | 344 | 23 |
+| scenario | level | stack | runs | rps ok avg | p95 ok ms avg | p99 ok ms avg | SQL/request avg | RSS MB last | DB conns last |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| n-plus-one-trap-best-effort | best-effort | jdbc | 3 | 425.99 | 84.84 | 122.78 | 2 | 109.2 | 23 |
+| n-plus-one-trap-best-effort | best-effort | prisma | 3 | 528.24 | 44.78 | 51.01 | 1 | 320 | 23 |
+| n-plus-one-trap-idiomatic | idiomatic | jdbc | 3 | 380.91 | 77.38 | 98.49 | 2 | 101.1 | 23 |
+| n-plus-one-trap-idiomatic | idiomatic | prisma | 3 | 160.73 | 156.9 | 175.96 | 3 | 320 | 23 |
+| n-plus-one-trap-naive | naive | jdbc | 3 | 13.93 | 1775.81 | 2174.03 | 301 | 89.9 | 23 |
+| n-plus-one-trap-naive | naive | prisma | 3 | 22.71 | 908.93 | 1020.71 | 103.04 | 319.9 | 23 |
+| paginated-list | idiomatic | jdbc | 3 | 569.6 | 49.53 | 64.59 | 1 | 108.7 | 23 |
+| paginated-list | idiomatic | prisma | 3 | 660.84 | 31.87 | 34.69 | 1 | 285 | 23 |
+| read-by-id | idiomatic | jdbc | 3 | 584.55 | 54.88 | 76.71 | 1 | 92.4 | 23 |
+| read-by-id | idiomatic | prisma | 3 | 420.68 | 58.44 | 71.51 | 4 | 285 | 23 |
+| read-by-id-best-effort | best-effort | jdbc | 3 | 741.06 | 37.62 | 45.91 | 1 | 96.4 | 23 |
+| read-by-id-best-effort | best-effort | prisma | 3 | 750.64 | 33.83 | 37.97 | 1 | 285 | 23 |
+| relation-summary-best-effort | best-effort | jdbc | 3 | 30.65 | 969.55 | 1436.12 | 2 | 112.8 | 23 |
+| relation-summary-best-effort | best-effort | prisma | 3 | 30.79 | 791.46 | 924.95 | 2.04 | 286.2 | 23 |
+| relation-summary-naive | naive | jdbc | 3 | 3.21 | 7407.76 | 8958.82 | 201 | 102.2 | 23 |
+| relation-summary-naive | naive | prisma | 3 | 3.08 | 6249.24 | 7016.76 | 201.26 | 289.5 | 23 |
+| report-aggregation-best-effort | best-effort | jdbc | 3 | 118.8 | 211.83 | 253.71 | 1 | 101.8 | 23 |
+| report-aggregation-best-effort | best-effort | prisma | 3 | 127.59 | 189.51 | 239.56 | 1.01 | 320 | 23 |
+| transaction-write | idiomatic | jdbc | 3 | 328.69 | 86.41 | 106.34 | 5 | 89.1 | 23 |
+| transaction-write | idiomatic | prisma | 3 | 253.35 | 86.86 | 94.99 | 7 | 320 | 23 |
 
 ## Interpretation
 
-- The most defensible comparison is naive vs optimized within each stack, especially in relation-summary and n-plus-one-trap.
-- report-aggregation measures the value of explicit SQL when the data shape is aggregational.
+- The most defensible comparison is naive vs idiomatic vs best-effort within each stack when equivalent variants exist.
+- report-aggregation and relation-summary-best-effort measure the value of explicit SQL when the data shape is aggregational.
 - transaction-write observes the cost of HTTP + driver + pool + write transaction; it does not isolate the database engine alone.
 
 ## What You Cannot Conclude

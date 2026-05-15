@@ -1,61 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-label="SQL por request exitoso">
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="860" viewBox="0 0 1600 860" role="img" aria-label="SQL por request exitoso">
   <rect width="100%" height="100%" fill="#f8fafc"/>
   <text x="40" y="44" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#0f172a">SQL por request exitoso</text>
-  <text x="40" y="688" font-family="Arial, sans-serif" font-size="13" fill="#475569">Advertencia metodologica: HTTP, pool, driver, GC, Docker Desktop y PostgreSQL estan dentro de la medicion.</text>
+  <text x="40" y="828" font-family="Arial, sans-serif" font-size="13" fill="#475569">Advertencia metodologica: HTTP, pool, driver, GC, Docker Desktop y PostgreSQL estan dentro de la medicion.</text>
   <g font-family="Arial, sans-serif">
-    <line x1="78" y1="530" x2="1152" y2="530" stroke="#94a3b8" />
-    <line x1="78" y1="72" x2="78" y2="530" stroke="#94a3b8" />
+    <line x1="88" y1="610" x2="1548" y2="610" stroke="#94a3b8" />
+    <line x1="88" y1="78" x2="88" y2="610" stroke="#94a3b8" />
     
-      <rect x="82" y="72" width="59.125" height="458" rx="3" fill="#16a34a" />
-      <text x="111.5625" y="66" text-anchor="middle" font-size="12" fill="#0f172a">301</text>
-      <text x="111.5625" y="550" text-anchor="end" transform="rotate(-55 111.5625 550)" font-size="12" fill="#334155">n-plus-one-trap-naive / jdbc</text>
-      <rect x="149.125" y="373.2300996677741" width="59.125" height="156.76990033222592" rx="3" fill="#2563eb" />
-      <text x="178.6875" y="367.2300996677741" text-anchor="middle" font-size="12" fill="#0f172a">103.03</text>
-      <text x="178.6875" y="550" text-anchor="end" transform="rotate(-55 178.6875 550)" font-size="12" fill="#334155">n-plus-one-trap-naive / prisma</text>
-      <rect x="216.25" y="526.9568106312292" width="59.125" height="3.043189368770764" rx="3" fill="#16a34a" />
-      <text x="245.8125" y="520.9568106312292" text-anchor="middle" font-size="12" fill="#0f172a">2</text>
-      <text x="245.8125" y="550" text-anchor="end" transform="rotate(-55 245.8125 550)" font-size="12" fill="#334155">n-plus-one-trap-opt / jdbc</text>
-      <rect x="283.375" y="523.9136212624585" width="59.125" height="6.086378737541528" rx="3" fill="#2563eb" />
-      <text x="312.9375" y="517.9136212624585" text-anchor="middle" font-size="12" fill="#0f172a">4</text>
-      <text x="312.9375" y="550" text-anchor="end" transform="rotate(-55 312.9375 550)" font-size="12" fill="#334155">n-plus-one-trap-opt / prisma</text>
-      <rect x="350.5" y="528.4784053156146" width="59.125" height="1.521594684385382" rx="3" fill="#16a34a" />
-      <text x="380.0625" y="522.4784053156146" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
-      <text x="380.0625" y="550" text-anchor="end" transform="rotate(-55 380.0625 550)" font-size="12" fill="#334155">paginated-list / jdbc</text>
-      <rect x="417.625" y="528.4784053156146" width="59.125" height="1.521594684385382" rx="3" fill="#2563eb" />
-      <text x="447.1875" y="522.4784053156146" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
-      <text x="447.1875" y="550" text-anchor="end" transform="rotate(-55 447.1875 550)" font-size="12" fill="#334155">paginated-list / prisma</text>
-      <rect x="484.75" y="528.4784053156146" width="59.125" height="1.521594684385382" rx="3" fill="#16a34a" />
-      <text x="514.3125" y="522.4784053156146" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
-      <text x="514.3125" y="550" text-anchor="end" transform="rotate(-55 514.3125 550)" font-size="12" fill="#334155">read-by-id / jdbc</text>
-      <rect x="551.875" y="523.9136212624585" width="59.125" height="6.086378737541528" rx="3" fill="#2563eb" />
-      <text x="581.4375" y="517.9136212624585" text-anchor="middle" font-size="12" fill="#0f172a">4</text>
-      <text x="581.4375" y="550" text-anchor="end" transform="rotate(-55 581.4375 550)" font-size="12" fill="#334155">read-by-id / prisma</text>
-      <rect x="619" y="224.15946843853817" width="59.125" height="305.84053156146183" rx="3" fill="#16a34a" />
-      <text x="648.5625" y="218.15946843853817" text-anchor="middle" font-size="12" fill="#0f172a">201</text>
-      <text x="648.5625" y="550" text-anchor="end" transform="rotate(-55 648.5625 550)" font-size="12" fill="#334155">relation-summary-naive / jdbc</text>
-      <rect x="686.125" y="223.7942857142857" width="59.125" height="306.2057142857143" rx="3" fill="#2563eb" />
-      <text x="715.6875" y="217.7942857142857" text-anchor="middle" font-size="12" fill="#0f172a">201.24</text>
-      <text x="715.6875" y="550" text-anchor="end" transform="rotate(-55 715.6875 550)" font-size="12" fill="#334155">relation-summary-naive / prisma</text>
-      <rect x="753.25" y="526.9568106312292" width="59.125" height="3.043189368770764" rx="3" fill="#16a34a" />
-      <text x="782.8125" y="520.9568106312292" text-anchor="middle" font-size="12" fill="#0f172a">2</text>
-      <text x="782.8125" y="550" text-anchor="end" transform="rotate(-55 782.8125 550)" font-size="12" fill="#334155">relation-summary-opt / jdbc</text>
-      <rect x="820.375" y="526.8959468438538" width="59.125" height="3.1040531561461795" rx="3" fill="#2563eb" />
-      <text x="849.9375" y="520.8959468438538" text-anchor="middle" font-size="12" fill="#0f172a">2.04</text>
-      <text x="849.9375" y="550" text-anchor="end" transform="rotate(-55 849.9375 550)" font-size="12" fill="#334155">relation-summary-opt / prisma</text>
-      <rect x="887.5" y="528.4784053156146" width="59.125" height="1.521594684385382" rx="3" fill="#16a34a" />
-      <text x="917.0625" y="522.4784053156146" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
-      <text x="917.0625" y="550" text-anchor="end" transform="rotate(-55 917.0625 550)" font-size="12" fill="#334155">report-aggregation / jdbc</text>
-      <rect x="954.625" y="528.4631893687707" width="59.125" height="1.536810631229236" rx="3" fill="#2563eb" />
-      <text x="984.1875" y="522.4631893687707" text-anchor="middle" font-size="12" fill="#0f172a">1.01</text>
-      <text x="984.1875" y="550" text-anchor="end" transform="rotate(-55 984.1875 550)" font-size="12" fill="#334155">report-aggregation / prisma</text>
-      <rect x="1021.75" y="522.3920265780731" width="59.125" height="7.607973421926911" rx="3" fill="#16a34a" />
-      <text x="1051.3125" y="516.3920265780731" text-anchor="middle" font-size="12" fill="#0f172a">5</text>
-      <text x="1051.3125" y="550" text-anchor="end" transform="rotate(-55 1051.3125 550)" font-size="12" fill="#334155">transaction-write / jdbc</text>
-      <rect x="1088.875" y="519.3336212624585" width="59.125" height="10.666378737541528" rx="3" fill="#2563eb" />
-      <text x="1118.4375" y="513.3336212624585" text-anchor="middle" font-size="12" fill="#0f172a">7.01</text>
-      <text x="1118.4375" y="550" text-anchor="end" transform="rotate(-55 1118.4375 550)" font-size="12" fill="#334155">transaction-write / prisma</text>
-    <circle cx="970" cy="38" r="7" fill="#2563eb"/><text x="984" y="42" font-size="13">Prisma</text>
-    <circle cx="1060" cy="38" r="7" fill="#16a34a"/><text x="1074" y="42" font-size="13">JDBC</text>
+      <rect x="92" y="606.4651162790698" width="65" height="3.5348837209302326" rx="3" fill="#16a34a" />
+      <text x="124.5" y="600.4651162790698" text-anchor="middle" font-size="12" fill="#0f172a">2</text>
+      <text x="124.5" y="638" text-anchor="end" transform="rotate(-52 124.5 638)" font-size="13" fill="#334155">n-plus-one-trap-best / jdbc</text>
+      <rect x="165" y="608.2325581395348" width="65" height="1.7674418604651163" rx="3" fill="#2563eb" />
+      <text x="197.5" y="602.2325581395348" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
+      <text x="197.5" y="638" text-anchor="end" transform="rotate(-52 197.5 638)" font-size="13" fill="#334155">n-plus-one-trap-best / prisma</text>
+      <rect x="238" y="606.4651162790698" width="65" height="3.5348837209302326" rx="3" fill="#16a34a" />
+      <text x="270.5" y="600.4651162790698" text-anchor="middle" font-size="12" fill="#0f172a">2</text>
+      <text x="270.5" y="638" text-anchor="end" transform="rotate(-52 270.5 638)" font-size="13" fill="#334155">n-plus-one-trap-idio / jdbc</text>
+      <rect x="311" y="604.6976744186046" width="65" height="5.3023255813953485" rx="3" fill="#2563eb" />
+      <text x="343.5" y="598.6976744186046" text-anchor="middle" font-size="12" fill="#0f172a">3</text>
+      <text x="343.5" y="638" text-anchor="end" transform="rotate(-52 343.5 638)" font-size="13" fill="#334155">n-plus-one-trap-idio / prisma</text>
+      <rect x="384" y="78" width="65" height="532" rx="3" fill="#16a34a" />
+      <text x="416.5" y="72" text-anchor="middle" font-size="12" fill="#0f172a">301</text>
+      <text x="416.5" y="638" text-anchor="end" transform="rotate(-52 416.5 638)" font-size="13" fill="#334155">n-plus-one-trap-naive / jdbc</text>
+      <rect x="457" y="427.8827906976744" width="65" height="182.1172093023256" rx="3" fill="#2563eb" />
+      <text x="489.5" y="421.8827906976744" text-anchor="middle" font-size="12" fill="#0f172a">103.04</text>
+      <text x="489.5" y="638" text-anchor="end" transform="rotate(-52 489.5 638)" font-size="13" fill="#334155">n-plus-one-trap-naive / prisma</text>
+      <rect x="530" y="608.2325581395348" width="65" height="1.7674418604651163" rx="3" fill="#16a34a" />
+      <text x="562.5" y="602.2325581395348" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
+      <text x="562.5" y="638" text-anchor="end" transform="rotate(-52 562.5 638)" font-size="13" fill="#334155">paginated-list / jdbc</text>
+      <rect x="603" y="608.2325581395348" width="65" height="1.7674418604651163" rx="3" fill="#2563eb" />
+      <text x="635.5" y="602.2325581395348" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
+      <text x="635.5" y="638" text-anchor="end" transform="rotate(-52 635.5 638)" font-size="13" fill="#334155">paginated-list / prisma</text>
+      <rect x="676" y="608.2325581395348" width="65" height="1.7674418604651163" rx="3" fill="#16a34a" />
+      <text x="708.5" y="602.2325581395348" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
+      <text x="708.5" y="638" text-anchor="end" transform="rotate(-52 708.5 638)" font-size="13" fill="#334155">read-by-id / jdbc</text>
+      <rect x="749" y="602.9302325581396" width="65" height="7.069767441860465" rx="3" fill="#2563eb" />
+      <text x="781.5" y="596.9302325581396" text-anchor="middle" font-size="12" fill="#0f172a">4</text>
+      <text x="781.5" y="638" text-anchor="end" transform="rotate(-52 781.5 638)" font-size="13" fill="#334155">read-by-id / prisma</text>
+      <rect x="822" y="608.2325581395348" width="65" height="1.7674418604651163" rx="3" fill="#16a34a" />
+      <text x="854.5" y="602.2325581395348" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
+      <text x="854.5" y="638" text-anchor="end" transform="rotate(-52 854.5 638)" font-size="13" fill="#334155">read-by-id-best / jdbc</text>
+      <rect x="895" y="608.2325581395348" width="65" height="1.7674418604651163" rx="3" fill="#2563eb" />
+      <text x="927.5" y="602.2325581395348" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
+      <text x="927.5" y="638" text-anchor="end" transform="rotate(-52 927.5 638)" font-size="13" fill="#334155">read-by-id-best / prisma</text>
+      <rect x="968" y="606.4651162790698" width="65" height="3.5348837209302326" rx="3" fill="#16a34a" />
+      <text x="1000.5" y="600.4651162790698" text-anchor="middle" font-size="12" fill="#0f172a">2</text>
+      <text x="1000.5" y="638" text-anchor="end" transform="rotate(-52 1000.5 638)" font-size="13" fill="#334155">relation-summary-best / jdbc</text>
+      <rect x="1041" y="606.3944186046512" width="65" height="3.605581395348837" rx="3" fill="#2563eb" />
+      <text x="1073.5" y="600.3944186046512" text-anchor="middle" font-size="12" fill="#0f172a">2.04</text>
+      <text x="1073.5" y="638" text-anchor="end" transform="rotate(-52 1073.5 638)" font-size="13" fill="#334155">relation-summary-best / prisma</text>
+      <rect x="1114" y="254.74418604651163" width="65" height="355.25581395348837" rx="3" fill="#16a34a" />
+      <text x="1146.5" y="248.74418604651163" text-anchor="middle" font-size="12" fill="#0f172a">201</text>
+      <text x="1146.5" y="638" text-anchor="end" transform="rotate(-52 1146.5 638)" font-size="13" fill="#334155">relation-summary-naive / jdbc</text>
+      <rect x="1187" y="254.28465116279068" width="65" height="355.7153488372093" rx="3" fill="#2563eb" />
+      <text x="1219.5" y="248.28465116279068" text-anchor="middle" font-size="12" fill="#0f172a">201.26</text>
+      <text x="1219.5" y="638" text-anchor="end" transform="rotate(-52 1219.5 638)" font-size="13" fill="#334155">relation-summary-naive / prisma</text>
+      <rect x="1260" y="608.2325581395348" width="65" height="1.7674418604651163" rx="3" fill="#16a34a" />
+      <text x="1292.5" y="602.2325581395348" text-anchor="middle" font-size="12" fill="#0f172a">1</text>
+      <text x="1292.5" y="638" text-anchor="end" transform="rotate(-52 1292.5 638)" font-size="13" fill="#334155">report-aggregation-best / jdbc</text>
+      <rect x="1333" y="608.2148837209303" width="65" height="1.7851162790697674" rx="3" fill="#2563eb" />
+      <text x="1365.5" y="602.2148837209303" text-anchor="middle" font-size="12" fill="#0f172a">1.01</text>
+      <text x="1365.5" y="638" text-anchor="end" transform="rotate(-52 1365.5 638)" font-size="13" fill="#334155">report-aggregation-best / prisma</text>
+      <rect x="1406" y="601.1627906976744" width="65" height="8.837209302325583" rx="3" fill="#16a34a" />
+      <text x="1438.5" y="595.1627906976744" text-anchor="middle" font-size="12" fill="#0f172a">5</text>
+      <text x="1438.5" y="638" text-anchor="end" transform="rotate(-52 1438.5 638)" font-size="13" fill="#334155">transaction-write / jdbc</text>
+      <rect x="1479" y="597.6279069767442" width="65" height="12.372093023255815" rx="3" fill="#2563eb" />
+      <text x="1511.5" y="591.6279069767442" text-anchor="middle" font-size="12" fill="#0f172a">7</text>
+      <text x="1511.5" y="638" text-anchor="end" transform="rotate(-52 1511.5 638)" font-size="13" fill="#334155">transaction-write / prisma</text>
+    <circle cx="1370" cy="38" r="7" fill="#2563eb"/><text x="1384" y="42" font-size="13">Prisma</text>
+    <circle cx="1460" cy="38" r="7" fill="#16a34a"/><text x="1474" y="42" font-size="13">JDBC</text>
   </g>
 </svg>

@@ -60,7 +60,8 @@ public class LabController {
   }
 
   @GetMapping("/tasks/{id}")
-  public Map<String, Object> readById(@PathVariable("id") String id) {
+  public Map<String, Object> readById(@PathVariable("id") String id,
+                                      @RequestParam(name = "mode", defaultValue = "idiomatic") String mode) {
     return db.queryForMap("""
         select t.id, t.title, t.status, t.created_at,
                p.id as project_id, p.name as project_name,
@@ -159,6 +160,7 @@ public class LabController {
           "commentCount", db.queryForMap("select count(*)::int as total from comments where task_id = ?::uuid", task.id())
       )).toList();
     }
+    // For JDBC, optimized and best-effort are the same maintainable explicit SQL shape.
     return db.queryForList("""
         select t.id, t.title, t.status, t.created_at,
                p.name as project_name,

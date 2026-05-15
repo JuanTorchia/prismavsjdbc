@@ -24,6 +24,12 @@ Windows PowerShell:
 .\scripts\run-lab.ps1 -Mode editorial -Size editorial -Runs 3 -Requests 300 -Warmup 30 -Concurrency 16
 ```
 
+Si `java -version` no es Java 21:
+
+```powershell
+.\scripts\run-lab.ps1 -Mode editorial -Size editorial -Runs 3 -Requests 300 -Warmup 30 -Concurrency 16 -JavaHome 'C:\Users\jstor\scoop\apps\temurin21-jdk\current'
+```
+
 Bash:
 
 ```bash
@@ -127,6 +133,12 @@ Windows PowerShell:
 
 ```powershell
 .\scripts\run-lab.ps1 -Mode editorial -Size editorial -Runs 3 -Requests 300 -Warmup 30 -Concurrency 16
+```
+
+If `java -version` is not Java 21:
+
+```powershell
+.\scripts\run-lab.ps1 -Mode editorial -Size editorial -Runs 3 -Requests 300 -Warmup 30 -Concurrency 16 -JavaHome 'C:\Users\jstor\scoop\apps\temurin21-jdk\current'
 ```
 
 Bash:

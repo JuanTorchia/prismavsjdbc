@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" role="img" aria-label="Idiomatic vs best-effort">
+  <rect width="100%" height="100%" fill="#f8fafc"/>
+  <text x="40" y="44" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#0f172a">Idiomatic vs best-effort</text>
+  <text x="40" y="728" font-family="Arial, sans-serif" font-size="13" fill="#475569">Advertencia metodologica: HTTP, pool, driver, GC, Docker Desktop y PostgreSQL estan dentro de la medicion.</text>
+  <g font-family="Arial, sans-serif">
+    <line x1="88" y1="510" x2="1548" y2="510" stroke="#94a3b8" />
+    <line x1="88" y1="78" x2="88" y2="510" stroke="#94a3b8" />
+    
+      <rect x="92" y="276.40611854684516" width="174.5" height="233.59388145315486" rx="3" fill="#16a34a" />
+      <text x="179.25" y="270.40611854684516" text-anchor="middle" font-size="12" fill="#0f172a">84.84</text>
+      <text x="179.25" y="538" text-anchor="end" transform="rotate(-52 179.25 538)" font-size="13" fill="#334155">n-plus-one-trap-best / jdbc</text>
+      <rect x="274.5" y="386.7051625239006" width="174.5" height="123.29483747609942" rx="3" fill="#2563eb" />
+      <text x="361.75" y="380.7051625239006" text-anchor="middle" font-size="12" fill="#0f172a">44.78</text>
+      <text x="361.75" y="538" text-anchor="end" transform="rotate(-52 361.75 538)" font-size="13" fill="#334155">n-plus-one-trap-best / prisma</text>
+      <rect x="457" y="296.94608030592735" width="174.5" height="213.05391969407265" rx="3" fill="#16a34a" />
+      <text x="544.25" y="290.94608030592735" text-anchor="middle" font-size="12" fill="#0f172a">77.38</text>
+      <text x="544.25" y="538" text-anchor="end" transform="rotate(-52 544.25 538)" font-size="13" fill="#334155">n-plus-one-trap-idio / jdbc</text>
+      <rect x="639.5" y="78" width="174.5" height="432" rx="3" fill="#2563eb" />
+      <text x="726.75" y="72" text-anchor="middle" font-size="12" fill="#0f172a">156.9</text>
+      <text x="726.75" y="538" text-anchor="end" transform="rotate(-52 726.75 538)" font-size="13" fill="#334155">n-plus-one-trap-idio / prisma</text>
+      <rect x="822" y="358.8963671128107" width="174.5" height="151.1036328871893" rx="3" fill="#16a34a" />
+      <text x="909.25" y="352.8963671128107" text-anchor="middle" font-size="12" fill="#0f172a">54.88</text>
+      <text x="909.25" y="538" text-anchor="end" transform="rotate(-52 909.25 538)" font-size="13" fill="#334155">read-by-id / jdbc</text>
+      <rect x="1004.5" y="349.0944550669216" width="174.5" height="160.90554493307837" rx="3" fill="#2563eb" />
+      <text x="1091.75" y="343.0944550669216" text-anchor="middle" font-size="12" fill="#0f172a">58.44</text>
+      <text x="1091.75" y="538" text-anchor="end" transform="rotate(-52 1091.75 538)" font-size="13" fill="#334155">read-by-id / prisma</text>
+      <rect x="1187" y="406.41912045889103" width="174.5" height="103.58087954110897" rx="3" fill="#16a34a" />
+      <text x="1274.25" y="400.41912045889103" text-anchor="middle" font-size="12" fill="#0f172a">37.62</text>
+      <text x="1274.25" y="538" text-anchor="end" transform="rotate(-52 1274.25 538)" font-size="13" fill="#334155">read-by-id-best / jdbc</text>
+      <rect x="1369.5" y="416.85430210325046" width="174.5" height="93.14569789674951" rx="3" fill="#2563eb" />
+      <text x="1456.75" y="410.85430210325046" text-anchor="middle" font-size="12" fill="#0f172a">33.83</text>
+      <text x="1456.75" y="538" text-anchor="end" transform="rotate(-52 1456.75 538)" font-size="13" fill="#334155">read-by-id-best / prisma</text>
+    <circle cx="1370" cy="38" r="7" fill="#2563eb"/><text x="1384" y="42" font-size="13">Prisma</text>
+    <circle cx="1460" cy="38" r="7" fill="#16a34a"/><text x="1474" y="42" font-size="13">JDBC</text>
+  </g>
+</svg>

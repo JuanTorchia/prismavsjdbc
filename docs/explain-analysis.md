@@ -2,7 +2,46 @@
 
 Baseline: PostgreSQL 16, dataset editorial de 50k tasks generado para la corrida principal Node 24 + Java 21.
 
-## relation-summary-optimized
+Las variantes Prisma `$queryRaw` y JDBC usan SQL equivalente en los escenarios marcados como `best-effort`; por eso el plan de PostgreSQL documenta el shape de datos, no una diferencia especifica del cliente.
+
+## read-by-id-best-effort
+
+```sql
+select t.id, t.title, t.status, t.created_at as "createdAt",
+       p.id as "projectId", p.name as "projectName",
+       o.id as "organizationId", o.name as "organizationName",
+       u.id as "assigneeId", u.display_name as "assigneeName"
+from tasks t
+join projects p on p.id = t.project_id
+join organizations o on o.id = p.organization_id
+join users u on u.id = t.assignee_id
+where t.id = '00000000-0000-4000-0100-000000000001'::uuid
+limit 1;
+```
+
+```text
+Limit  (cost=11.86..15.44 rows=1 width=113) (actual time=0.134..0.135 rows=1 loops=1)
+  Buffers: shared hit=9
+  ->  Nested Loop  (cost=11.86..15.44 rows=1 width=113) (actual time=0.133..0.134 rows=1 loops=1)
+        Buffers: shared hit=9
+        ->  Hash Join  (cost=11.73..15.12 rows=1 width=107) (actual time=0.121..0.122 rows=1 loops=1)
+              Hash Cond: (u.id = t.assignee_id)
+              Buffers: shared hit=7
+              ->  Seq Scan on users u  (cost=0.00..3.00 rows=100 width=25) (actual time=0.004..0.005 rows=1 loops=1)
+              ->  Hash  (cost=11.72..11.72 rows=1 width=98) (actual time=0.100..0.100 rows=1 loops=1)
+                    ->  Hash Join  (cost=8.44..11.72 rows=1 width=98) (actual time=0.063..0.097 rows=1 loops=1)
+                          Hash Cond: (p.id = t.project_id)
+                          ->  Seq Scan on projects p  (cost=0.00..3.00 rows=100 width=44) (actual time=0.004..0.030 rows=100 loops=1)
+                          ->  Hash  (cost=8.43..8.43 rows=1 width=70) (actual time=0.038..0.038 rows=1 loops=1)
+                                ->  Index Scan using tasks_pkey on tasks t  (cost=0.41..8.43 rows=1 width=70) (actual time=0.033..0.034 rows=1 loops=1)
+                                      Index Cond: (id = '00000000-0000-4000-0100-000000000001'::uuid)
+        ->  Index Scan using organizations_pkey on organizations o  (cost=0.13..0.27 rows=1 width=22) (actual time=0.009..0.009 rows=1 loops=1)
+              Index Cond: (id = p.organization_id)
+Planning Time: 1.410 ms
+Execution Time: 0.242 ms
+```
+
+## relation-summary-best-effort
 
 ```sql
 with selected_projects as (
@@ -103,7 +142,7 @@ order by sp.id;
 
 ```
 
-## n-plus-one-trap-optimized
+## n-plus-one-trap-best-effort
 
 ```sql
 select t.id, t.title, t.status, t.created_at,
@@ -162,12 +201,12 @@ limit 100;
  Planning:
    Buffers: shared hit=322
  Planning Time: 1.383 ms
- Execution Time: 0.991 ms
+ Execution Time: 1.038 ms
 (41 rows)
 
 ```
 
-## report-aggregation
+## report-aggregation-best-effort
 
 ```sql
 select p.organization_id,

@@ -14,8 +14,8 @@ for (let i = 2; i < process.argv.length; i += 1) {
 
 const input = args.get("input") ?? "results/assets/report.es.html";
 const outDir = args.get("out") ?? "results/assets/screenshots";
-const width = Number(args.get("width") ?? 1440);
-const height = Number(args.get("height") ?? 1100);
+const width = Number(args.get("width") ?? 1800);
+const height = Number(args.get("height") ?? 1300);
 
 await mkdir(outDir, { recursive: true });
 
@@ -32,7 +32,7 @@ if (chromium) {
     const page = await browser.newPage({ viewport: { width, height }, deviceScaleFactor: 1 });
     await page.goto(pathToFileURL(path.resolve(input)).href);
     await page.screenshot({ path: path.join(outDir, "report-full.png"), fullPage: true });
-    for (const id of ["p95", "sql", "n1", "summary"]) {
+    for (const id of ["p95", "sql", "n1", "levels", "best", "summary"]) {
       const locator = page.locator(`#${id}`);
       if (await locator.count()) {
         await locator.screenshot({ path: path.join(outDir, `${id}.png`) });
@@ -109,6 +109,8 @@ const svgCaptures = [
   ["p95.png", "p95-by-scenario.svg"],
   ["sql.png", "sql-by-scenario.svg"],
   ["n1.png", "n-plus-one-impact.svg"],
+  ["levels.png", "level-improvement.svg"],
+  ["best.png", "idiomatic-vs-best-effort.svg"],
   ["java-sensitivity-p95.png", "java-sensitivity-p95.svg"]
 ];
 for (const [png, svg] of svgCaptures) {
