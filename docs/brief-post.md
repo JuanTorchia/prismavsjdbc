@@ -67,5 +67,5 @@ Completar despues de commit:
 
 ```text
 repo: https://github.com/JuanTorchia/prismavsjdbc
-commit: ver tag baseline-editorial-final y commit final publicado
+commit: 5f6111d1458f382c1e01a0175fde52982a6bbf3b (tag baseline-editorial-final)
 ```
