@@ -1,0 +1,9 @@
+node_modules/
+target/
+dist/
+.env
+.DS_Store
+results/raw/
+*.log
+postgres-data/
+.playwright-mcp/

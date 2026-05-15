@@ -1,0 +1,30 @@
+{
+  "name": "prismavsjdbc-prisma-client",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js",
+    "dev": "tsx src/server.ts",
+    "seed": "tsx src/seed.ts",
+    "test": "node --test dist/*.test.js"
+  },
+  "dependencies": {
+    "@fastify/type-provider-typebox": "4.1.0",
+    "@prisma/client": "5.22.0",
+    "fastify": "4.28.1",
+    "tsx": "4.19.2"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "prisma": "5.22.0",
+    "typescript": "5.7.2"
+  },
+  "prisma": {
+    "seed": "tsx src/seed.ts"
+  }
+}

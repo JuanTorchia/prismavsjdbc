@@ -1,0 +1,56 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: prismavsjdbc-postgres
+    environment:
+      POSTGRES_DB: lab
+      POSTGRES_USER: lab
+      POSTGRES_PASSWORD: lab
+    ports:
+      - "${LAB_DB_PORT:-55432}:5432"
+    command:
+      - "postgres"
+      - "-c"
+      - "shared_preload_libraries=pg_stat_statements"
+      - "-c"
+      - "pg_stat_statements.track=all"
+      - "-c"
+      - "max_connections=200"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lab -d lab"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  prisma-client:
+    build:
+      context: ./apps/prisma-client
+    environment:
+      DATABASE_URL: postgresql://lab:lab@postgres:5432/lab?schema=public
+      PORT: 3001
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "3001:3001"
+
+  jdbc-service:
+    build:
+      context: ./apps/jdbc-service
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/lab
+      SPRING_DATASOURCE_USERNAME: lab
+      SPRING_DATASOURCE_PASSWORD: lab
+      SERVER_PORT: 3002
+      JAVA_TOOL_OPTIONS: -Duser.timezone=UTC
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "3002:3002"
+
+volumes:
+  postgres-data:
