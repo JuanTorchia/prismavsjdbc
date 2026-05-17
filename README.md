@@ -2,6 +2,11 @@
 
 English version: [README.en.md](README.en.md)
 
+Articulo relacionado:
+
+- Español: [Prisma vs JDBC: el benchmark que casi me hace culpar al ORM equivocado](https://juanchi.dev/es/blog/prisma-vs-jdbc-benchmark-query-shape-n1)
+- English: [Prisma vs JDBC: the benchmark that almost made me blame the wrong ORM](https://juanchi.dev/en/blog/prisma-vs-jdbc-benchmark-query-shape-n1)
+
 Comandos bilingues PowerShell/Bash: [docs/commands-es-en.md](docs/commands-es-en.md)
 
 Assets visuales y capturas para el post: [docs/content-assets.md](docs/content-assets.md)

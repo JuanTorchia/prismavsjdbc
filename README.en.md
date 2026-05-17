@@ -1,5 +1,10 @@
 # Prisma vs JDBC: Reproducible Lab
 
+Related article:
+
+- English: [Prisma vs JDBC: the benchmark that almost made me blame the wrong ORM](https://juanchi.dev/en/blog/prisma-vs-jdbc-benchmark-query-shape-n1)
+- Español: [Prisma vs JDBC: el benchmark que casi me hace culpar al ORM equivocado](https://juanchi.dev/es/blog/prisma-vs-jdbc-benchmark-query-shape-n1)
+
 This repository compares two real stacks against the same PostgreSQL 16 database, dataset, and business scenarios:
 
 - Node.js 24 LTS + TypeScript + Prisma 5.
